@@ -2,8 +2,10 @@
 int button = 2;
 volatile int switcher = 0;
 boolean flash;
+boolean isUp;
 int flashtime = 50;
 int bouncetime = 100;
+
 
 void setup() {
   Serial.begin(9600);
@@ -18,29 +20,28 @@ void setup() {
 void switcherf() {
   switcher++;
   switcher = switcher % 4;
-  delay(500);
-  Serial.println("case: ");
   Serial.println(switcher);
+  delay(500);
 }
 
 void loop() {
-switch (switcher){
-  case 0:
-    allOn();
-    break;
-  case 1:
-    allOff();
-    break;
-  case 2:
-    delay(flashtime);
-    flash = !flash;
-    allFlashing();
-    break;
-  case 3:
-    allBounce();
-    Serial.println("case 3 ");
-    break;
-  }
+  switch (switcher){
+    case 0:
+      allOn();
+      break;
+    case 1:
+      allOff();
+      break;
+    case 2:
+      delay(flashtime);
+      flash = !flash;
+      allFlashing();
+      break;
+    case 3:
+      allBounce();
+      Serial.println("case 3 ");
+      break;
+    }
 }
 
 void allOn() {
@@ -61,6 +62,8 @@ void allFlashing(){
   }
 }
 
+
+//MAKE ME BOUNCE
 void allBounce(){
   digitalWrite(9, LOW);
   digitalWrite(10, LOW);
@@ -73,6 +76,7 @@ void allBounce(){
       pmod = 8 - pmod;}
     pmod = 9 + pmod;
     digitalWrite(pmod, HIGH);
+    bouncetime = analogRead(0);
     delay(bouncetime);
     digitalWrite(pmod, LOW);
   }
