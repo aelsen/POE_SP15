@@ -1,5 +1,6 @@
 
 int button = 2;
+int bouncet = 0;
 volatile int switcher = 0;
 boolean flash;
 boolean isUp;
@@ -70,14 +71,14 @@ void allBounce(){
   digitalWrite(11, LOW);
   digitalWrite(12, LOW);
   digitalWrite(13, LOW);
-  for(int p = 0; true; p++ ){
-    int pmod = p % 8;
-    if (pmod>4){
-      pmod = 8 - pmod;}
-    pmod = 9 + pmod;
-    digitalWrite(pmod, HIGH);
-    bouncetime = analogRead(0);
-    delay(bouncetime);
-    digitalWrite(pmod, LOW);
+  int pmod = bouncet % 8;
+  if (pmod>4){
+    pmod = 8 - pmod;}
+  pmod = 9 + pmod;
+  bouncet = pmod;
+  digitalWrite(pmod, HIGH);
+  bouncetime = analogRead(0);
+  delay(bouncetime);
+  digitalWrite(pmod, LOW);
   }
 }
