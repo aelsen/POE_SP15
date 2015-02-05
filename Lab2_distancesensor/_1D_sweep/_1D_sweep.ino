@@ -39,10 +39,10 @@ void loop() {
 }
 
 /**
-  Distance = -313.428369 * ln(x) + 1189.047935
+  Distance = -16.122034*log(x) + 109.105113
 **/
-double estimateDistance(int pos){
+double estimateDistance(int val){
 	double estimate = -1;
-	estimate = -313.428 * log(pos) + 1189.048;
+	estimate = -16.122034*log(val) + 109.105113;
 	return estimate;
 }
