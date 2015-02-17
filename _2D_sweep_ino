@@ -1,0 +1,62 @@
+#include <Servo.h>
+
+Servo panservo;
+Servo tiltservo;
+
+int sensorPin = A0; 
+int sensorValue = 0;
+int distanceEst = 0;
+int pos = 0;
+int tilt = 0;
+int servoDelay = 25;
+
+
+void setup() {
+  Serial.begin(9600);
+  panservo.attach(9);
+  tiltservo.attach(10); //check this
+}
+
+void loop() {
+  for(tilt = 0; tilt<=45; tilt+=1) //fix the angles
+    {
+      tiltservo.write(tilt); //tells tilting servo to go to position in variable tilt
+      delay(servoDelay);      //waits 15ms for the servo to reach the position
+    }
+  for(tilt = 45; tilt>=0; tilt-=1) //also here
+  {
+    tiltservo.write(tilt); //tells tilting servo to go to position in variable tilt
+    delay(servoDelay);      //waits 15ms for the servo to reach the position
+    
+    for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
+    {                                  // in steps of 1 degree 
+      panservo.write(pos);              // tells panning servo to go to position in variable 'pos' 
+      delay(servoDelay);                       // waits 15ms for the servo to reach the position 
+    } 
+    for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees 
+    {                                
+      panservo.write(pos);              // tells servo to go to position in variable 'pos' 
+      delay(servoDelay);                       // waits 15ms for the servo to reach the position
+
+
+      //measure angle 
+      sensorValue = analogRead(sensorPin);
+      distanceEst = estimateDistance(sensorValue);
+      Serial.print("angle: "); 
+      Serial.print(pos); 
+      Serial.print(", raw input: "); 
+      Serial.print(sensorValue); 
+      Serial.print(", distance: "); 
+      Serial.println(distanceEst);
+    } 
+  }
+}
+
+/**
+  Distance = -16.122034*log(x) + 109.105113
+**/
+double estimateDistance(int val){
+	double estimate = -1;
+	estimate = -16.122034*log(val) + 109.105113;
+	return estimate;
+}
