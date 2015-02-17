@@ -6,15 +6,15 @@ Servo tiltservo;
 int sensorPin = A0; 
 int sensorValue = 0;
 int distanceEst = 0;
-int pos = 0;
-int tilt = 0;
+int pos = 0; //pan servo position
+int tilt = 0; //tilt servo position
 int servoDelay = 25;
 
 
 void setup() {
   Serial.begin(9600);
   panservo.attach(9);
-  tiltservo.attach(10); //check this
+  tiltservo.attach(10); //fix this?
 }
 
 void loop() {
