@@ -42,7 +42,8 @@ void loop() {
   Distance = -16.122034*log(x) + 109.105113
 **/
 double estimateDistance(int val){
-	double estimate = -1;
-	estimate = -16.122034*log(val) + 109.105113;
-	return estimate;
+  double estimate = -1;
+  estimate = -16.122034*log(val) + 109.105113;
+  if((estimate > 50) || (estimate == 0)) estimate = -1;
+  return estimate;
 }
