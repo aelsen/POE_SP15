@@ -17,39 +17,33 @@ void setup() {
 }
 
 void loop() {
-  for(posX = 0; posX <= 180; posX += 1) // goes from 0 degrees to 180 degrees 
+  Serial.print("begining");
+  for(posX = 65; posX <= 115; posX += 1) // goes from 0 degrees to 180 degrees 
   {                                  // in steps of 1 degree 
-    servo_x.write(posX);              // tell servo to go to position in variable 'pos' 
+    servo_x.write(posX);    // tell servo to go to position in variable 'pos'
     delay(servoDelay);                       // waits 15ms for the servo to reach the position 
   }
-  for(posX = 180; posX>=0; posX -=1)     // goes from 180 degrees to 0 degrees 
+  for(posX = 115; posX>=65; posX -=1)     // goes from 180 degrees to 0 degrees 
   {                                
-    servo_x.write(posX);              // tell servo to go to position in variable 'pos' 
+    servo_x.write(posX);    // tell servo to go to position in variable 'pos' 
     delay(servoDelay);                       // waits 15ms for the servo to reach the position
-    for(posY = 45; posY <= 135; posY += 1) // goes from 0 degrees to 180 degrees 
+    for(posY = 0; posY <= 80; posY += 1) // goes from 0 degrees to 180 degrees 
     {                                  // in steps of 1 degree 
-      servo_y.write(posY);              // tell servo to go to position in variable 'pos' 
-      delay(servoDelay);                       // waits 15ms for the servo to reach the position 
-    } 
-    for(posY = 90; posY <= 45; posY -= 1) // goes from 0 degrees to 180 degrees 
-    {                                  // in steps of 1 degree 
-      servo_y.write(posY);              // tell servo to go to position in variable 'pos' 
-      delay(servoDelay);                       // waits 15ms for the servo to reach the position 
-      //measure angle 
-      sensorValue = analogRead(sensorPin);
+      servo_y.write(posY);
+      sensorValue = analogRead(A0);
       distanceEst = estimateDistance(sensorValue);
-      Serial.print("posX: "); 
       Serial.print(posX);
-      Serial.print("posY: "); 
-      Serial.print(posY);  
-      Serial.print(", raw input: "); 
-      Serial.print(sensorValue); 
-      Serial.print(", distance: "); 
-      Serial.println(distanceEst);
+      Serial.print(",");
+      Serial.print(posY);
+      Serial.print(",");
+      Serial.println(distanceEst);      // tell servo to go to position in variable 'pos' 
+      delay(servoDelay);                       // waits 15ms for the servo to reach the position 
     }
+    servo_y.write(0);
+    delay(servoDelay);
   }
- Serial.print("done");
- delay(1000); 
+  Serial.print("done");
+  delay(1000); 
 }
 
 /**
