@@ -18,16 +18,16 @@ void setup() {
 
 void loop() {
   Serial.print("begining");
-  for(posX = 65; posX <= 115; posX += 1) // goes from 0 degrees to 180 degrees 
+  for(posX = 30; posX <= 90; posX += 1) // goes from 0 degrees to 180 degrees 
   {                                  // in steps of 1 degree 
     servo_x.write(posX);    // tell servo to go to position in variable 'pos'
     delay(servoDelay);                       // waits 15ms for the servo to reach the position 
   }
-  for(posX = 115; posX>=65; posX -=1)     // goes from 180 degrees to 0 degrees 
+  for(posX = 90; posX>=30; posX -=1)     // goes from 180 degrees to 0 degrees 
   {                                
     servo_x.write(posX);    // tell servo to go to position in variable 'pos' 
     delay(servoDelay);                       // waits 15ms for the servo to reach the position
-    for(posY = 0; posY <= 80; posY += 1) // goes from 0 degrees to 180 degrees 
+    for(posY = 20; posY <= 80; posY += 1) // goes from 0 degrees to 180 degrees 
     {                                  // in steps of 1 degree 
       servo_y.write(posY);
       sensorValue = analogRead(A0);
